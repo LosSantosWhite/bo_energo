@@ -11,4 +11,4 @@ class TestEquationView(TestCase):
     def test_post(self):
         data = {"a": 1, "b": 2, "c": 3}
         response = self.client.post('/equation/solve/', data=data)
-        self.assertRedirects(response, '/equation/solve/', 302)
+        self.assertContains(response, text="Действительных корней нет")
