@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Deal with it</button>
+</form>
+<form method="post" style="margin-top: 10px">
+  {% csrf_token %}
+  <button type="submit" value="refill">Refill database</button>
+</form>
+{% if color_name %}
+  <p>Item color: {{ color_name }}</p>
+{% endif %}
+</body>
+</html>

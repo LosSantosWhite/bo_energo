@@ -4,11 +4,11 @@ from django.core.exceptions import ObjectDoesNotExist
 from equation.models import Parameter, Answer
 
 
-def count_roots(a: float, b: float, c: float) -> tuple or str or float:
+def count_roots(a: float, b: float, c: float) -> tuple or float or None:
     """
     ПОдсчет корней уравнения
     """
-    D = b ** 2 - 4 * a * c
+    D = b**2 - 4 * a * c
     try:
 
         if D < 0:
@@ -25,21 +25,19 @@ def count_roots(a: float, b: float, c: float) -> tuple or str or float:
 
 
 def get_roots(a: float = 1, b: float = 1, c: float = 1) -> list or str:
+    """
+    Если корни уже подсчитаны для данных коэффициентов, то взять значение из БД,
+    усли нет - рассчитать и записать
+    """
     try:
-        answer = Answer.objects.get(
-            parameter=Parameter.objects.get(a=a, b=b, c=c)
-        )
+        answer = Answer.objects.get(parameter=Parameter.objects.get(a=a, b=b, c=c))
         return [i for i in [answer.x_1, answer.x_2] if i]
     except ObjectDoesNotExist:
         roots = count_roots(a, b, c)
-        parameter = Parameter.objects.create(
-            a=a, b=b, c=c
-        )
+        parameter = Parameter.objects.create(a=a, b=b, c=c)
         if isinstance(roots, tuple):
             answer = Answer.objects.create(
-                parameter=parameter,
-                x_1=roots[0],
-                x_2=roots[1]
+                parameter=parameter, x_1=roots[0], x_2=roots[1]
             )
         elif isinstance(roots, int):
             answer = Answer.objects.create(
@@ -53,5 +51,5 @@ def get_roots(a: float = 1, b: float = 1, c: float = 1) -> list or str:
         return [i for i in [answer.x_1, answer.x_2] if i]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(get_roots(1, 2, 3))

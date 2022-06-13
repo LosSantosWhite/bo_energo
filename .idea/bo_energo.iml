@@ -27,6 +27,7 @@
       <list>
         <option value="$MODULE_DIR$/templates" />
         <option value="$MODULE_DIR$/equation/templates" />
+        <option value="$MODULE_DIR$/assignment/templates" />
       </list>
     </option>
   </component>
