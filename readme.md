@@ -12,7 +12,7 @@
 
     docker-compose up web
 
-### Необходимые урлы
+### Необходимые URLs
 - /equation/solve/ - решение квадратных уравнений;
 - /assignment/get-item/ - выборка предметов;
 
